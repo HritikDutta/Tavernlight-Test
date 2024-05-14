@@ -1,0 +1,8 @@
+Module
+  name: tavernlight_test
+  description: Window that has a button that jumps from one place to another
+  author: Hritik Dutta
+  sandboxed: true
+  scripts: [ jump.lua ]
+  @onLoad: init()
+  @onUnload: terminate()

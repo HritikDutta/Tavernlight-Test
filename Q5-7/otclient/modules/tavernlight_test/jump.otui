@@ -1,0 +1,16 @@
+MainWindow
+  !text: tr('Jump')
+  size: 200 200
+
+  @onEnter: modules.tavernlight_test.create()
+  @onEscape: modules.tavernlight_test.destroy()
+
+  Button
+    id: jump
+    !text: tr('Jump!')
+    width: 50
+    anchors.top: parent.top
+    anchors.left: parent.left
+    margin-top: 5
+    margin-left: 200
+    @onClick: modules.tavernlight_test.jumpToNewStartPoint()

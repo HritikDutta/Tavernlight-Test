@@ -127,6 +127,9 @@ void GraphicalApplication::run()
 
     g_lua.callGlobalField("g_app", "onRun");
 
+    // Used to calculate frame time delta
+    float prevFrameTime = g_clock.seconds();
+
     while(!m_stopping) {
         // poll all events before rendering
         poll();
@@ -182,6 +185,17 @@ void GraphicalApplication::run()
                     m_backgroundFrameCounter.processNextFrame();
                     g_ui.render(Fw::BothPanes);
                 }
+
+                {   // Added an event called onRender for per frame callbacks
+                    // From what I could understand, there wasn't an event that was triggered every frame.
+                    // Being more comfortable with C++, I resorted to triggering an additional event here called onRender
+                    // to ensure smooth movement of the button in my solution.
+                    float now = g_clock.seconds();
+                    float delta = now - prevFrameTime;
+                    prevFrameTime = now;
+                    g_lua.callGlobalField("g_app", "onRender", delta);
+                }
+
 
                 // update screen pixels
                 g_window.swapBuffers();
